@@ -38,6 +38,8 @@ Defined.
 
 (** *** Coinductive frobnication *)
 
+Set Lax CoInductive Match.
+
 (** This doesn't seem to be necessary at the moment. *)
 Definition frobsp {E : pType} (Es : IsSpectrum E)
 : IsSpectrum E.
@@ -72,6 +74,8 @@ Proof.
     reflexivity.
 Defined.
 
+Unset Lax CoInductive Match.
+
 (** ** Maps of spectra *)
 
 CoInductive IsSpMap
@@ -96,6 +100,8 @@ Global Instance isspmap_loops_oo_functor {E F} (f : SpMap E F)
 : IsSpMap (loops_oo_functor f)
   := pr2 f.
 
+Set Lax CoInductive Match.
+
 CoFixpoint isspmap_loops_functor
            {E F : pType} {Es : IsSpectrum E} {Fs : IsSpectrum F}
            (f : E ->* F) {fs : IsSpMap f}
@@ -104,6 +110,8 @@ Proof.
   destruct fs.
   refine (spmap_loop (loops E) (loops F) (loops_functor f) _ _ _).
 Qed.
+
+Unset Lax CoInductive Match.
 
 Global Existing Instance isspmap_loops_functor.
 
@@ -117,6 +125,8 @@ Defined.
 
 (** ** Truncation *)
 
+Set Lax CoInductive Match.
+
 (** TODO: Generalize this to all integers *)
 CoFixpoint isspectrum_tr `{Univalence} (n : trunc_index)
            {A : pType} (As : IsSpectrum A)
@@ -127,6 +137,8 @@ Proof.
   { apply isspectrum_loops. by apply isspectrum_tr. }
   exact (transport IsSpectrum (ptr_loops_eq n E)^ s).
 Defined.
+
+Unset Lax CoInductive Match.
 
 Global Existing Instance isspectrum_tr.
 
